@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pranjal</title>
+    <title>Quiz Wave</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
         }
 
         header {
-            background-color:#6473e8;;
+            background-color: #6d44b8;
             color: #fff;
             padding: 10px;
             text-align: center;
@@ -25,21 +30,74 @@
 
         nav {
             display: flex;
-            justify-content: space-between; 
+            justify-content: space-between;
             align-items: center;
-            padding: 0 20px; 
+            padding: 0 20px;
             margin-top: 10px;
+        }
+        .badge {
+    width: 50px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Add margin between badges */
+}
+
+        h1 {
+            margin: 0;
         }
 
         nav a {
             color: #fff;
             text-decoration: none;
-            margin: 0 15px;
-            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: color 0.5s ease, background-color 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav a:nth-child(2),
+        nav a:nth-child(3) {
+            margin: 0 20px; /* Add margin to separate buttons */
         }
 
         nav a:hover {
-            color: #ffcc00;
+            color: #fff;
+            background-color: #5249d5; /* Dark blue background on hover */
+        }
+
+        nav .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        nav .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            max-width: 200px; /* Set a maximum width */
+            box-shadow: 0 8px 16px rgba(85, 91, 215, 0.767);
+            z-index: 1;
+            top: 100%; /* Position the dropdown below the button */
+            left: 0; /* Align with the left side of the button */
+            right: 0; /* Align with the right side of the button */
+        }
+
+        nav .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        nav .dropdown-content a {
+            color: #262626;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        nav .dropdown-content a:hover {
+            background-color: #6d44b8;
+            color: #fff;
         }
 
         section {
@@ -48,7 +106,7 @@
         }
 
         footer {
-            background-color: #6473e8;;
+            background-color:#6d44b8;
             color: #fff;
             padding: 10px;
             text-align: center;
@@ -57,9 +115,6 @@
             bottom: 0;
         }
 
-        h1 {
-            margin-left: 20px; 
-        }
         section.description {
             padding: 80px 20px;
             text-align: center;
@@ -71,42 +126,692 @@
             max-width: 600px;
             margin: 0 auto;
         }
-        
+
+
+@media only screen and (max-width: 768px) {
+            /* Adjust styles for smaller screens here */
+            header {
+                padding: 10px 0; /* Reduce padding on smaller screens */
+            }
+
+            nav {
+                flex-direction: column; /* Stack navigation links vertically */
+                align-items: center; /* Center align navigation links */
+            }
+
+            nav a {
+                margin: 5px 0; /* Add margin between navigation links */
+            }
+
+            .card-container {
+                flex-wrap: wrap; /* Allow cards to wrap to next line on smaller screens */
+            }
+
+            .card {
+                width: calc(50% - 20px); /* Two cards per row with margin */
+                margin: 10px; /* Adjust margin for smaller screens */
+            }
+
+            section.quiz,
+            section.contact {
+                padding: 40px 20px; /* Reduce padding for quiz and contact sections */
+            }
+        }
+
+.card-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.card {
+    width: 300px;
+    height: 400px; /* Adjusted height to accommodate the content */
+    margin: 10px;
+    border-radius: 12px;
+    overflow: hidden;
+    background:#573b8a; /* Lighter purple color for card */
+    border: 1px solid rgba(56, 95, 223, 0.255);
+    filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+}
+
+.card-image {
+    height: 70%; /* 70% of the card height for the image */
+    background-position: center;
+    background-size: cover;
+    border-radius: 12px 12px 0 0;
+    border-bottom: 1px solid rgba(15, 13, 13, 0.255);
+}
+
+.card-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.card h2 {
+    font-family: 'Righteous', sans-serif;
+    color:#f2f0f7; /* Darker purple color for card title */
+    text-transform: uppercase;
+    font-size: 1.2rem; /* Adjusted font size */
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    font-size: 0.7rem;
+    line-height: 150%;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.card {
+    width: 300px;
+    height: 400px;
+    margin: 10px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #573b8a;
+    border: 1px solid rgba(8, 51, 190, 0.722);
+    filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+    position: relative; /* Add this line */
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(65, 60, 211, 0.5);
+    transition: top 0.3s ease; /* Transition for sweeping effect */
+}
+
+.card:hover::before {
+    top: 0;
+}
+
+#home {
+    margin-top: 0; /* Reset any default margin */
+    padding-top: 10px; /* Add padding to reduce space */
+}
+
+
+.left-section,
+.right-section {
+    flex: 1;
+    padding: 20px; /* Adjust padding as needed */
+}
+
+/* Add styles to increase the height */
+.left-section,
+.right-section {
+    height: 300px; /* Adjust height as needed */
+}
+.quiz .beautiful-button {
+    margin-top: 20px; /* Add margin to the top */
+}
+
+.flip-card {
+    margin-top: 1.5px; /* Adjust margin as needed */
+    background-color: transparent;
+    width: 590px;
+    height: 454px;
+    perspective: 1000px;
+    font-family: sans-serif;
+}
+.beautiful-button {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(to bottom, #3c286e, #5c4a91); /* Gradient background */
+    color: white; /* White text color */
+    font-family: "Segoe UI", sans-serif; /* Stylish and legible font */
+    font-weight: bold;
+    font-size: 18px; /* Large font size */
+    border: none; /* No border */
+    border-radius: 30px; /* Rounded corners */
+    padding: 14px 28px; /* Large padding */
+    cursor: pointer; /* Cursor on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    animation: button-shimmer 2s infinite;
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+/* Hover animation */
+.beautiful-button:hover {
+    background: linear-gradient(to bottom,#432973, #5b67b7);
+    animation: button-particles 1s ease-in-out infinite;
+    transform: translateY(-2px);
+}
+
+/* Click animation */
+.beautiful-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Shimmer animation */
+@keyframes button-shimmer {
+    0% {
+        background-position: left top;
+    }
+
+    100% {
+        background-position: right bottom;
+    }
+}
+
+/* Particle animation */
+@keyframes button-particles {
+    0% {
+        background-position: left top;
+    }
+
+    100% {
+        background-position: right bottom;
+    }
+}
+
+.title {
+    font-size: 1.5em;
+    font-weight: 900;
+    text-align: center;
+    margin: 0;
+}
+
+/* Style for the flip-cards */
+.flip-card {
+    margin: 10px; /* Adjust margin as needed */
+    width: 200px; /* Adjust width as needed */
+    height: 250px; /* Adjust height as needed */
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.flip-card-front {
+    background-color: white; /* Set background color to white */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px; /* Add border-radius for rounded corners */
+    padding: 20px; /* Add padding */
+}
+
+.flip-card-back {
+    background-color: #eee; /* Set background color for back side */
+    color: black; /* Set text color */
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px; /* Add border-radius for rounded corners */
+    padding: 20px; /* Add padding */
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items at the top */
+}
+
+.col {
+    flex: 1;
+    flex-basis: 50%; /* Each column takes up 50% of the space */
+    padding: 0 20px; /* Add some padding between the two columns */
+    box-sizing: border-box; /* Include padding in column width */
+}
+
+
+.col-3 {
+    flex-basis: 100%;
+    margin: 10px 0; /* Add vertical margin */
+}
+
+.col .flip-card {
+    margin: 0 10px; /* Add horizontal margin */
+}
+
+.home-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .right-section {
+            margin-left: 20px; /* Adjust as needed */
+            text-align: left; /* Align text to the left */
+        }
+
+        /* Adjustments for smaller screens */
+        @media only screen and (max-width: 768px) {
+            .home-container {
+                flex-direction: column; /* Stack items vertically on smaller screens */
+                align-items: flex-start; /* Align items to the start on smaller screens */
+            }
+
+            .right-section {
+                margin: 20px 0 0; /* Adjust margin for smaller screens */
+                text-align: center; /* Center align text on smaller screens */
+            }
+        }
+    .right-section h1 {
+    font-size: 1.5em; /* Increase the font size for h1 */
+}
+.section {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.top-header {
+    margin-bottom: 40px;
+}
+.top-header h1, .top-header span {
+    color: white;
+    margin-bottom: 20px; /* Adjust margin as needed */
+}
+.top-header h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.top-header span {
+    font-size: 1.2em;
+    color: #777;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.col {
+    flex: 1;
+    max-width: 50%;
+    padding: 0 20px;
+}
+
+.contact-info {
+    background-color: #432973;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    height: 100%; /* Set height to match the height of the right column */
+}
+.contact-info:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.contact-info h2 {
+    margin-bottom: 10px;
+}
+
+.contact-info p {
+    
+    color: white;
+    margin-bottom: 20px
+}
+
+.contact-info {
+    background-color: #573b8a;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px; /* Add bottom margin */
+    transition: all 0.3s ease; /* Add transition */
+}
+
+.form-control {
+    background-color: #573b8a;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px; /* Add bottom margin */
+    transition: all 0.3s ease; /* Add transition */
+}
+
+
+.form-control:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+.text-area textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    resize: none;
+}
+
+.form-button button {
+    padding: 10px 20px;
+    background-color: #7f56ca;
+    color: #432973;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+/* Contact info box */
+.contact-info {
+    background-color: #573b8a;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px; /* Add bottom margin */
+    transition: all 0.3s ease;
+}
+
+.contact-info:hover {
+    background-color: rgb(116, 80, 200);
+    color: #573b8a;
+}
+
+/* Form control box */
+.form-control {
+    background-color: #573b8a;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px; /* Add bottom margin */
+    transition: all 0.3s ease;
+}
+
+.form-control:hover {
+    background-color:rgb(116, 80, 200);
+    color: #573b8a;
+}
+
+
+/* Contact section */
+.section#contact h2 {
+    margin-bottom: 50px; /* Add margin below the h1 tag */
+}
+
+
+/* Style for the flip-cards */
+.flip-card {
+    margin: 10px; /* Adjust margin as needed */
+    width: 200px; /* Adjust width as needed */
+    height: 250px; /* Adjust height as needed */
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.flip-card-front {
+    background-color: white; /* Set background color to white */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px; /* Add border-radius for rounded corners */
+}
+
+.flip-card-back {
+    background-color: #eee; /* Set background color for back side */
+    color: black; /* Set text color */
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px; /* Add border-radius for rounded corners */
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.col {
+    flex: 1;
+}
+
+/* Style to arrange cards side by side */
+.row .col {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
     </style>
 </head>
 <body>
 
     <header>
         <nav>
-            <h1>Pranjal</h1>
+            
+            <h1>Quiz Wave</h1>
             <div>
                 <a href="#home">Home</a>
                 <a href="#service">Service</a>
+                <div class="dropdown">
+                    <a href="#quiz">Quiz</a>
+                    <div class="dropdown-content">
+                        <a href="#">C</a>
+                        <a href="#">C++</a>
+                        <a href="#">Java</a>
+                        <a href="#">JavaScript</a>
+                        <a href="#">HTML</a>
+                        <a href="#">CSS</a>
+                        <a href="#">Python</a>
+                    </div>
+                </div>
                 <a href="#contact">Contact</a>
             </div>
         </nav>
     </header>
 
-    <section id="home">
-        
+        <section id="home">
+            <div class="top-header" style="margin-top: 80px;">
+                <h1 style="color: black; margin-bottom: 80px;">Welcome to Quiz Wave</h1>
+               
+            </div>
+        <div class="badges">
+            <div class="row">
+                <div class="col">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="badge1.png" alt="Badge 1">
+                            </div>
+                            <div class="flip-card-back">
+                                <p>Badge 1 Description</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="badge2.png" alt="Badge 2">
+                            </div>
+                            <div class="flip-card-back">
+                                <p>Badge 2 Description</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col">
+                            <div class="flip-card">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <img src="badge3.png" alt="Badge 3">
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <p>Badge 3 Description</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="flip-card">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <img src="badge4.png" alt="Badge 4">
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <p>Badge 4 Description</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="flip-card">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <img src="badge5.png" alt="Badge 5">
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <p>Badge 5 Description</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span style="margin-top: 20px; display: block;"Embark on a quest for knowledge and journey through the waves to earn your badges, bridging the gap between you and success!</span>
     </section>
-    <section class="description">
-        <h2>Welcome to Pranjal's Basic Landing Page</h2>
-        <p>This is a simple landing page created for demonstration purposes. Feel free to customize the content and layout based on your needs. You can add or modify sections as per your requirements. It's a starting point, and you can unleash your creativity to make it your own!</p>
+    
+
+
+
+    <section class="service" id="service">
+        <h2>Our Services</h2>
+        <div class="card-container">
+            <!-- Card 1 -->
+            <div class="card">
+                <div class="card-image" style="background-image: url('p.jpg');"></div>
+                <div class="card-content">
+                    <h2>Performance Analytics</h2>
+                   
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card">
+                <div class="card-image" style="background-image: url('k.jpg');"></div>
+                <div class="card-content">
+                    <h2>Coding Quizzes</h2>
+                    
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card">
+                <div class="card-image" style="background-image: url('j.jpg');"></div>
+                <div class="card-content">
+                    <h2>Quiz Creation</h2>
+                    
+ 
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section id="service">
+    <section class="quiz" id="quiz">
+        <h2>Select the Language</h2>
+
+        <div class="beautiful-button">
+            <button class="beautiful-button">C</button>
+            <button class="beautiful-button">C++</button>
+            <button class="beautiful-button">Java</button>
+            <button class="beautiful-button">JavaScript</button>
+            <button class="beautiful-button">HTML</button>
+            <button class="beautiful-button">CSS</button>
+            <button class="beautiful-button">Python</button>
+        </div>
     </section>
+    
 
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Provide contact information and a form here.</p>
+    <section class="section" id="contact">
+        <h2>Contact</h2>
+        <div class="row">
+            <div class="col">
+                <div class="contact-info fill-up">
+                    <h2>Find Me <i class="uil uil-corner-right-down"></i></h2>
+                    <p><i class="uil uil-envelope"></i> Email: pb6523@srmist.edu.in</p>
+                    <p><i class="uil uil-envelope"></i> Email: pranjalbajpai30@gmail.com</p>
+                    <p><i class="uil uil-phone"></i> +91 9118604416</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-control fill-up">
+                    <div class="form-inputs">
+                        <input type="text" class="input-field" placeholder="Name">
+                        <input type="text" class="input-field" placeholder="Email">
+                    </div>
+                    <div class="text-area">
+                        <textarea placeholder="Message"></textarea>
+                    </div>
+                    <div class="form-button">
+                        <button class="btn">Send <i class="uil uil-message"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+    
+    <!-- End Contact Section -->
 
 
-    <footer>
-        <p>&copy; 2024 Pranjal - Your Company Name or Footer Information</p>
-    </footer>
+
 
 </body>
 </html>
